@@ -9,7 +9,27 @@
     <main>
     <pre id="json-data"></pre>
 
-    <script src="index.js"></script>
+    <script type="text/javascript">
+      const displayElement = document.getElementById('json-data');
+      displayElement.style.fontSize = '18px';
+      fetch('./sample-data/data.json')
+          .then(response => response.json())
+          .then(data => {
+          console.log(data);
+          let text = "";
+          for (const obj in data)
+          {
+            console.log(data[obj])
+            for (const key in data[obj])
+            {
+              text += `${key}: ${data[obj][key]}<br>`
+
+            }
+            text += "<br>"
+          }
+          displayElement.innerHTML = text;
+          })
+    </script>
     </main>
     <footer></footer>
   </body>

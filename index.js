@@ -1,4 +1,5 @@
 const displayElement = document.getElementById('json-data');
+displayElement.style.fontSize = '18px';
 fetch('./sample-data/entries.json')
     .then(response => {
         if (!response.ok) {
@@ -6,4 +7,4 @@ fetch('./sample-data/entries.json')
         }
         return response.json();  })
     .then(data => {
-        displayElement.innerHTML = JSON.stringify(data, null, 2)})
+        console.log(data)})
