@@ -1,3 +1,4 @@
+Public URL: https://rozza049.github.io/test-ictadmission/
 # ICT Conscript Admission Test
 Thank you for taking interest in applying into our ICT Conscript Program. 
 
