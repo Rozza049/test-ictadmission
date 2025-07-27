@@ -25,10 +25,11 @@ fetch('./sample-data/data.json')
 function listEntries(entries) {
     let text = "";
     count += entries;
-    while (entries.length>0)
+    let newestDate;
+    let currentData;
+    while (entries.length>0) //iterate through the entries
     {
-        let newestDate = new Date("1990-01-01");
-        let currentData;
+        newestDate = new Date("1990-01-01"); //despite the IDs being in chronological order already, it would be good practice to make sure of this
         for (let i = 0; i<=entries.length-1; i++)
         {
             if (newestDate.getTime()<new Date(entries[i].isoTime).getTime())
@@ -37,7 +38,7 @@ function listEntries(entries) {
                 newestDate=new Date(entries[i].isoTime);
             }
         }
-        text += `<h4><br>${entries[currentData].title}</h4><p>${entries[currentData].body}<br>Time: ${new Date(entries[currentData].isoTime).toString()}<br>Latitude: ${entries[currentData].lat}<br>Longitude: ${entries[currentData].lon}<br></p>`;
+        text += `<h4><br>${entries[currentData].title}</h4><p>${entries[currentData].body}<br>Time: ${new Date(entries[currentData].isoTime).toString()}<br>Latitude: ${entries[currentData].lat}<br>Longitude: ${entries[currentData].lon}<br></p>`; //The format for new entries
         entries.splice(currentData, 1);
 
     }
@@ -68,7 +69,7 @@ window.onclick = function(event) {
 entrBtn.onclick = function() {
     var date = Date.now();
     var newEntry;
-    if (title.value == "" || desc.value == "" || (!(lon.value == "" && lat.value == "") && !(lon.value != "" && lat.value != "" && !isNaN(lat.value) && !isNaN(lon.value)))) {
+    if (title.value == "" || desc.value == "" || (!(lon.value == "" && lat.value == "") && !(lon.value != "" && lat.value != "" && !isNaN(lat.value) && !isNaN(lon.value) && lon.value < 180 && lon.value > -180 && lat.value < 90 && lat.value > -90))) { //checks for valid values including the range of values for latitude and longitude
         error.innerHTML = "Error, invalid input";
     } else {
         error.innerHTML = "";
@@ -79,9 +80,9 @@ entrBtn.onclick = function() {
         }
         count = count + 1;
         newEntry={"id": count, "title": title.value, "body": desc.value, "isoTime": date, "lat": lat.value, "lon": lon.value};
-        let text = `<h4><br>${newEntry.title}</h4><p>${newEntry.body}<br>Time: ${new Date(newEntry.isoTime).toString()}<br>Latitude: ${newEntry.lat}<br>Longitude: ${newEntry.lon}<br></p>` + displayElement.innerHTML;
+        let text = `<h4><br>${newEntry.title}</h4><p>${newEntry.body}<br>Time: ${new Date(newEntry.isoTime).toString()}<br>Latitude: ${newEntry.lat}<br>Longitude: ${newEntry.lon}<br></p>` + displayElement.innerHTML; //the format for new entries
         displayElement.innerHTML = text;
-        modal.style.display = "none";
+        modal.style.display = "none"; //reset the modal
         lon.value = "";
         lat.value = "";
         title.value = "";
